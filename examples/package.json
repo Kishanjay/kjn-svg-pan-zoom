@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "npm --prefix .. run prepublishOnly && parcel build index.html"
   },
   "author": "",
   "license": "ISC",
