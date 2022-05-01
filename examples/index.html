@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examples | @kjn/svg-pan-zoom</title>
+    <style>
+      li {
+        padding: 4px;
+      }
+      svg {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module" defer>
+      import SvgPanZoom from "@kjn/svg-pan-zoom/build/index.js";
+
+      // Assert that all DOM elements are present and loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const svgElement = document.getElementById("svg");
+        const svgPanZoom = new SvgPanZoom(svgElement);
+      });
+    </script>
+    <h1>@kjn/svg-pan-zoom demo</h1>
+    <ul>
+      <li><a href="./zoom-buttons.html">Simple zooming in and out with buttons</a></li>
+      ... more demo's to come
+    </ul>
+    <svg id="svg" width="800" height="400">
+      <rect x="10" y="10" width="230" height="230" stroke="black" stroke-width="5" />
+      <rect x="60" y="10" rx="10" ry="10" width="130" height="130" stroke="red" stroke-width="5" />
+      <circle cx="25" cy="75" r="80" stroke="red" fill="transparent" stroke-width="5" />
+      <ellipse cx="75" cy="75" rx="80" ry="5" stroke="red" fill="transparent" stroke-width="5" />
+      <line x1="500" x2="50" y1="110" y2="550" stroke="orange" stroke-width="5" />
+      <polyline
+        points="60 110 1200 120 70 115 75 130 80 900 85 140 90 135 95 150 100 145"
+        stroke="orange"
+        fill="transparent"
+        stroke-width="5"
+      />
+      <polygon
+        points="4000 160 55 180 70 180 1 190 65 205 50 499 350 205 40 190 30 180 45 180"
+        stroke="green"
+        fill="transparent"
+        stroke-width="5"
+      />
+
+      <path d="M20,230 Q40,205 50,230 T90,230" fill="none" stroke="blue" stroke-width="5" />
+      <ellipse cx="900" cy="50" rx="50" ry="50" />
+      <ellipse cx="1550" cy="2250" rx="1150" ry="1150" stroke="blue" fill="green" />
+
+      <path
+        d="M 10 315
+        L 110 215
+        A 36 60 0 0 1 150.71 170.29
+        L 172.55 152.45
+        A 30 50 -45 0 1 215.1 109.9
+        L 315 10"
+        stroke="black"
+        fill="green"
+        stroke-width="2"
+        fill-opacity="0.5"
+      />
+      <circle cx="150.71" cy="170.29" r="2" fill="red" />
+      <circle cx="110" cy="215" r="2" fill="red" />
+      <ellipse cx="144.931" cy="229.512" rx="36" ry="60" fill="transparent" stroke="blue" />
+      <ellipse cx="115.779" cy="155.778" rx="36" ry="60" fill="transparent" stroke="blue" />
+    </svg>
+  </body>
+</html>

@@ -4,9 +4,30 @@
 
 [![npm version](https://badge.fury.io/js/@kjn%2Fsvg-pan-zoom.svg)](https://badge.fury.io/js/@kjn%2Fsvg-pan-zoom)
 
-Panning and zooming library for SVG
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ce5ba025-6a43-4aaa-83f5-c7175ddbdc3f/deploy-status)](https://app.netlify.com/sites/majestic-tartufo-7553ae/deploys)
 
-## Usage
+[Live Demo](kjn-svg-pan-zoom.netlify.app)
+
+The **simplest** panning and zooming library for SVG elements in HTML. The barebone approach leaves
+everything besides enabling panning and zooming to the user.
+
+This library allows your SVG elements to be both pannable and zoomable instantly without forcing
+any coding style, patterns, or requirements on the user, the opt-in library approach allows you to
+seamlessly add zoom and pan features to any SVG element.
+
+## How to use
+
+When using `npm` simply install the dependency and start using it in your projects.
+
+```sh
+npm install --save @kjn/svg-pan-zoom
+OR
+yarn add @kjn/svg-pan-zoom
+```
+
+After acquiring the library you can import the class in any way you'd like.
+
+Option 1 (preferred) - using EcmaScript Modules (ESM):
 
 ```js
 import SvgPanZoom from "@kjn/svg-pan-zoom";
@@ -15,11 +36,101 @@ import SvgPanZoom from "@kjn/svg-pan-zoom";
 new SvgPanZoom(document.getElementById("svg"));
 ```
 
-## Development
+Option 2 - using CommonJS modules:
 
-All source-code resides in the `src` directory. This project uses conventional commits.
+```js
+const SvgPanZoom = require("@kjn/svg-pan-zoom");
 
-### Publish
+// This will initialise panning and zooming for this svg element.
+new SvgPanZoom(document.getElementById("svg"));
+```
 
-Updates to main are published automatically by semantic-release using semantic versioning based
-on the commitlog.
+Example:
+
+```html
+<!-- script[type=module] allows you to import modules -->
+<script type="module">
+  import SvgPanZoom from "@kjn/svg-pan-zoom";
+
+  // This will initialise panning and zooming for this svg element.
+  new SvgPanZoom(document.getElementById("svg"));
+</script>
+```
+
+See the examples directory for more.
+
+## API / Docs
+
+### Options
+
+The options object knows the following parameters
+
+| Option | Description                                                        |
+| ------ | ------------------------------------------------------------------ |
+| logger | Object implementing `info`, `error`, `warn` and `log` as functions |
+
+```js
+const options = {
+  logger: {
+    info: console.info,
+    error: console.error,
+    warn: console.warn,
+    log: console.log,
+  },
+};
+
+new SvgPanZoom(element, options);
+```
+
+### Events
+
+SvgPanZoom emits events on action. The events that are exposed are:
+
+| Event | Description                                   |
+| ----- | --------------------------------------------- |
+| zoom  | The zoom level of the svg element has changed |
+| pan   | The panning of the svg element has changed    |
+
+```ts
+const svgPanZoom = new SvgPanZoom(element);
+svgPanZoom.on("zoom", (newScale: number) => {
+  console.log(`The element is zoomed in ${newScale}x`);
+});
+svgPanZoom.on("pan", (x: number, y: number) => {
+  console.log(`The top left pixel its viewBox is showing [x:${x}, y:${y}]`);
+});
+```
+
+### Methods / Properties
+
+The methods that are exposed to the user are:
+
+| Method / Property          | Description                                         |
+| -------------------------- | --------------------------------------------------- |
+| zoom(desiredScale: number) | Allows the user to set the scale the svg element    |
+| scale                      | Allows the user to get the scale of the svg element |
+
+```js
+const svgPanZoom = new SvgPanZoom(element);
+svgPanZoom.zoom(0.1); // Increase the zoom with 10%
+svgPanZoom.zoom(-0.1); // Decrease the zoom with 10%
+
+console.log("The current scale is: " + svgPanZoom.scale);
+```
+
+# Development
+
+Since this is a small project there aren't too many development guidelines.
+To just mention some things about the philosophy of this repository, please adhere to the following:
+
+- All functional source-code should reside in the `src` directory.
+- All project/setup/ non-functional code should reside outside the `src` directory
+- When making fixes, features or doing any task, create a new commit in line with the [conventional
+  commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/)
+- Respect the formatting and linting rules
+
+## Publishing
+
+This repository is setup to auto-publish new releases using [semantic-release](https://github.com/semantic-release/semantic-release).
+Essentially this boils down to releases being versioned, tagged and published based on the
+commitlog.
