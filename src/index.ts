@@ -15,42 +15,56 @@ export default class SvgPanZoom extends EventEmitter {
   #lastMouseXPosition: number;
   #lastMouseYPosition: number;
 
+  #originalBodyCursor: string;
+
+  /**
+   * Make an element pannable and zoomable.
+   *
+   * @param svgElement Which SVG element to make pannable and zoomable
+   * @param options.logger The logger that should be used to output debug information
+   */
   constructor(svgElement: HTMLElement, options: { logger?: Logger }) {
     super();
+
     this.#draggingSvg = false;
     this.#lastMouseXPosition = -1;
     this.#lastMouseYPosition = -1;
+    this.#originalBodyCursor = document.body.style.cursor;
 
-    if (options?.logger) {
-      this.#logger = options.logger;
-    } else {
-      this.#logger = new Logger("svg-pan-zoom");
-    }
+    this.#logger = options?.logger || new Logger("svg-pan-zoom");
 
     const viewBox = svgElement.getAttribute("viewBox");
     if (viewBox) {
       // To keep a consistent zoom experience the viewBox is reset on init.
-      this.#logger.warn(
-        "Overwriting existing viewbox of svg element",
-        svgElement as unknown as string
-      );
+      this.#logger.warn("Overwriting viewbox of svg element");
     }
     svgElement.setAttribute("viewBox", `0 0 ${svgElement.clientWidth} ${svgElement.clientHeight}`);
+    svgElement.setAttribute("preserveAspectRatio", "none");
+    svgElement.style.cursor = "grab";
 
     // Keep the x, and y positions and update the dragging state
+    this.#logger.info("Added mousedown listener to svgElement");
     svgElement.addEventListener("mousedown", (ev) => {
       this.#draggingSvg = true;
       this.#lastMouseXPosition = ev.clientX;
       this.#lastMouseYPosition = ev.clientY;
+
+      this.#svgElement.style.cursor = "grabbing";
+      document.body.style.cursor = "grabbing";
     });
 
     // Remove the x, and y positions and update the dragging state
+    this.#logger.info("Added mouseup listener to svgElement");
     document.addEventListener("mouseup", () => {
       this.#draggingSvg = false;
       this.#lastMouseXPosition = -1;
       this.#lastMouseYPosition = -1;
+
+      this.#svgElement.style.cursor = "grab";
+      document.body.style.cursor = this.#originalBodyCursor;
     });
 
+    this.#logger.info("Added mousemove listener to document");
     document.addEventListener("mousemove", (ev) => {
       if (!this.#draggingSvg) {
         return;
@@ -80,20 +94,25 @@ export default class SvgPanZoom extends EventEmitter {
       this.#lastMouseYPosition = mouseYposition;
     });
 
-    svgElement.addEventListener("wheel", (ev) => {
-      // Use the mouse position relative to the svg element.
-      const { offsetX: mouseX, offsetY: mouseY } = ev;
+    this.#logger.info("Added wheel listener to svgElement");
+    svgElement.addEventListener(
+      "wheel",
+      (ev) => {
+        // Use the mouse position relative to the svg element.
+        const { offsetX: mouseX, offsetY: mouseY } = ev;
 
-      // Based on our mouse position we calculate how much of the relative delta should be added to the left side (and the right side).
-      // the intuition here is that if our mouse is at the left most position the increment should be added 100% on the rightside.
-      const leftSideRatio = mouseX / this.#svgElement.clientWidth;
-      const topSideRatio = mouseY / this.#svgElement.clientHeight;
+        // Based on our mouse position we calculate how much of the relative delta should be added to the left side (and the right side).
+        // the intuition here is that if our mouse is at the left most position the increment should be added 100% on the rightside.
+        const leftSideRatio = mouseX / this.#svgElement.clientWidth;
+        const topSideRatio = mouseY / this.#svgElement.clientHeight;
 
-      // ev.deltaY is positive on zooming out and negative on zooming in.
-      const zoomPercentage = ev.deltaY * -1;
-      const zoomRatio = zoomPercentage * 0.01;
-      this.zoom(zoomRatio, leftSideRatio, topSideRatio);
-    });
+        // ev.deltaY is positive on zooming out and negative on zooming in.
+        const zoomPercentage = ev.deltaY * -1;
+        const zoomRatio = zoomPercentage * 0.01;
+        this.zoom(zoomRatio, leftSideRatio, topSideRatio);
+      },
+      { passive: true }
+    );
 
     this.#svgElement = svgElement;
   }
