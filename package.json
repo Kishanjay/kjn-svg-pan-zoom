@@ -8,7 +8,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "postinstall": "husky install",
     "prepublishOnly": "npm run build && cp -R build dist",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

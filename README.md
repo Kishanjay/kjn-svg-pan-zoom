@@ -6,7 +6,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ce5ba025-6a43-4aaa-83f5-c7175ddbdc3f/deploy-status)](https://app.netlify.com/sites/majestic-tartufo-7553ae/deploys)
 
-[Live Demo](kjn-svg-pan-zoom.netlify.app)
+[Live Demo](http://kjn-svg-pan-zoom.netlify.app)
 
 The **simplest** panning and zooming library for SVG elements in HTML. The barebone approach leaves
 everything besides enabling panning and zooming to the user.
@@ -32,7 +32,7 @@ Option 1 (preferred) - using EcmaScript Modules (ESM):
 ```js
 import SvgPanZoom from "@kjn/svg-pan-zoom";
 
-// This will initialise panning and zooming for this svg element.
+// Adds panning and zooming capabilities to this element.
 new SvgPanZoom(document.getElementById("svg"));
 ```
 
@@ -41,7 +41,7 @@ Option 2 - using CommonJS modules:
 ```js
 const SvgPanZoom = require("@kjn/svg-pan-zoom");
 
-// This will initialise panning and zooming for this svg element.
+// Adds panning and zooming capabilities to this element.
 new SvgPanZoom(document.getElementById("svg"));
 ```
 
@@ -65,9 +65,9 @@ See the examples directory for more.
 
 The options object knows the following parameters
 
-| Option | Description                                                        |
-| ------ | ------------------------------------------------------------------ |
-| logger | Object implementing `info`, `error`, `warn` and `log` as functions |
+| Option | Description                                                                |
+| ------ | -------------------------------------------------------------------------- |
+| logger | Object implementing `info`, `error`, `warn` `debug` and `log` as functions |
 
 ```js
 const options = {
@@ -76,6 +76,7 @@ const options = {
     error: console.error,
     warn: console.warn,
     log: console.log,
+    debug: console.debug,
   },
 };
 
@@ -112,8 +113,8 @@ The methods that are exposed to the user are:
 
 ```js
 const svgPanZoom = new SvgPanZoom(element);
-svgPanZoom.zoom(0.1); // Increase the zoom with 10%
-svgPanZoom.zoom(-0.1); // Decrease the zoom with 10%
+svgPanZoom.zoom(0.1); // Increase the zoomlevel by 10%
+svgPanZoom.zoom(-0.1); // Decrease the zoomlevel by 10%
 
 console.log("The current scale is: " + svgPanZoom.scale);
 ```
