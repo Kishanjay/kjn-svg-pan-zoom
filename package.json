@@ -16,6 +16,7 @@
     "lint:prettier:fix": "prettier --write .",
     "lint-staged": "lint-staged",
     "build": "tsc --pretty",
+    "build:examples": "npm run build && npm --prefix examples build",
     "semantic-release": "semantic-release"
   },
   "author": "Kishan Nirghin <kishan@itslogical.nl>",
@@ -48,7 +49,7 @@
     "url": "https://github.com/Kishanjay/kjn-svg-pan-zoom.git"
   },
   "dependencies": {
-    "@kjn/event-emitter": "^1.0.1",
-    "@kjn/logger": "^1.0.0"
+    "@kjn/event-emitter": "^1.0.2",
+    "@kjn/logger": "^1.1.0"
   }
 }
