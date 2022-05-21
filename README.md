@@ -4,9 +4,11 @@
 
 [![npm version](https://badge.fury.io/js/@kjn%2Fsvg-pan-zoom.svg)](https://badge.fury.io/js/@kjn%2Fsvg-pan-zoom)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ce5ba025-6a43-4aaa-83f5-c7175ddbdc3f/deploy-status)](https://app.netlify.com/sites/majestic-tartufo-7553ae/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ce5ba025-6a43-4aaa-83f5-c7175ddbdc3f/deploy-status)](https://app.netlify.com/sites/kjn-svg-pan-zoom/deploys)
 
 [Live Demo](http://kjn-svg-pan-zoom.netlify.app)
+
+![Gif Demo](http://kjn-svg-pan-zoom.netlify.app/demo.gif)
 
 The **simplest** panning and zooming library for SVG elements in HTML. The barebone approach leaves
 everything besides enabling panning and zooming to the user.
