@@ -17,7 +17,7 @@ This library allows your SVG elements to be both pannable and zoomable instantly
 any coding style, patterns, or requirements on the user, the opt-in library approach allows you to
 seamlessly add zoom and pan features to any SVG element.
 
-## How to use
+# Usage
 
 When using `npm` simply install the dependency and start using it in your projects.
 
@@ -61,9 +61,9 @@ Example:
 
 See the examples directory for more.
 
-## API / Docs
+# API / Docs
 
-### Options
+## Options
 
 The options object knows the following parameters
 
@@ -85,7 +85,7 @@ const options = {
 new SvgPanZoom(element, options);
 ```
 
-### Events
+## Events
 
 SvgPanZoom emits events on action. The events that are exposed are:
 
@@ -104,7 +104,7 @@ svgPanZoom.on("pan", (x: number, y: number) => {
 });
 ```
 
-### Methods / Properties
+## Methods / Properties
 
 The methods that are exposed to the user are:
 
@@ -123,6 +123,12 @@ console.log("The current scale is: " + svgPanZoom.scale);
 
 # Development
 
+Start dev environment
+
+```
+npm run dev
+```
+
 Since this is a small project there aren't too many development guidelines.
 To just mention some things about the philosophy of this repository, please adhere to the following:
 
@@ -132,7 +138,7 @@ To just mention some things about the philosophy of this repository, please adhe
   commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/)
 - Respect the formatting and linting rules
 
-## Publishing
+# Publishing
 
 This repository is setup to auto-publish new releases using [semantic-release](https://github.com/semantic-release/semantic-release).
 Essentially this boils down to releases being versioned, tagged and published based on the

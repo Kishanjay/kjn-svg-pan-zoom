@@ -15,6 +15,7 @@
     "lint:prettier": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "lint-staged": "lint-staged",
+    "dev": "parcel dev.html --dist-dir ./build-dev",
     "build": "tsc --pretty",
     "build:examples": "npm run build && npm --prefix examples build",
     "semantic-release": "semantic-release"
@@ -37,6 +38,7 @@
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.4.0",
+    "parcel": "^2.5.0",
     "prettier": "^2.6.2",
     "semantic-release": "^19.0.2",
     "typescript": "^4.7.0-dev.20220424"

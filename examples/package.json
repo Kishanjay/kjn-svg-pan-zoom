@@ -5,12 +5,12 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "build": "npm --prefix .. install && npm --prefix .. run prepublishOnly && parcel build index.html"
+    "build": "rm -rf ./dist && parcel build index.html && cp demo.gif ./dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@kjn/svg-pan-zoom": "file:.."
+    "@kjn/svg-pan-zoom": "^1.1.6"
   },
   "devDependencies": {
     "parcel": "^2.5.0"
